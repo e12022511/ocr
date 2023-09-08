@@ -1,26 +1,34 @@
 import pytesseract
 from PIL import Image
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+from deskew_traditional.deskew_utils import *
+from deskew_traditional.projection_profile import ProjectionProfile
 from pdf2image import convert_from_path
 import filetype
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+
 def extract_text(file_path):
     file_type = filetype.guess(file_path).extension
-    if (file_type == 'pdf'):
+    if file_type == 'pdf':
         pdf_to_text(file_path)
-    elif (file_type == 'png' or file_type == 'jpeg'):
-        images = []
-        images.append(get_image_from_path(file_path))
+    elif file_type == 'png' or file_type == 'jpeg':
+        images = [get_image_from_path(file_path)]
         image_to_text(images)
+    else:
+        print("File can only be of Type pdf/png/jpeg")
+
 
 def image_to_text(images):
     for i in range(len(images)):
         extracted_text = pytesseract.image_to_string(images[i])
         print(extracted_text)
 
+
 def pdf_to_text(pdf_path):
     images = convert_from_path(pdf_path)
     image_to_text(images)
+
 
 def get_image_from_path(file_path):
     try:
@@ -31,6 +39,9 @@ def get_image_from_path(file_path):
 
 
 if __name__ == '__main__':
-    path = 'resources/PDFs/sample.pdf'
-    extract_text(path)
+    path = 'resources/PDFs/doc.png'
+    img = get_image_from_path(path)
 
+    pp = ProjectionProfile()
+    deskewed_image = pp.deskew(img)
+    deskewed_image.show()
