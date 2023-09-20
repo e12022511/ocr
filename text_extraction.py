@@ -1,9 +1,10 @@
-import pytesseract
-from PIL import Image
-from deskew_traditional.deskew_utils import *
-from deskew_traditional.projection_profile import ProjectionProfile
-from pdf2image import convert_from_path
 import filetype
+import pytesseract
+from pdf2image import convert_from_path
+
+from deskew_traditional.deskew_utils import *
+from deskew_traditional.hough_transform import HoughTransform
+from deskew_traditional.projection_profile import ProjectionProfile
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -13,7 +14,7 @@ def extract_text(file_path):
     if file_type == 'pdf':
         pdf_to_text(file_path)
     elif file_type == 'png' or file_type == 'jpeg':
-        images = [get_image_from_path(file_path)]
+        images = [read_from_path(file_path)]
         image_to_text(images)
     else:
         print("File can only be of Type pdf/png/jpeg")
@@ -30,18 +31,13 @@ def pdf_to_text(pdf_path):
     image_to_text(images)
 
 
-def get_image_from_path(file_path):
-    try:
-        image = Image.open(file_path)
-        return image
-    except IOError:
-        print("Unable to open image file:", file_path)
-
-
 if __name__ == '__main__':
-    path = 'resources/PDFs/doc.png'
-    img = get_image_from_path(path)
+    path = 'resources/PDFs/Rechnungsvorlage.png'
+    img = read_from_path(path)
+    img = rotate_image(img, 4.5)
 
+    ht = HoughTransform()
     pp = ProjectionProfile()
-    deskewed_image = pp.deskew(img)
-    deskewed_image.show()
+
+    corrected_image = pp.deskew(img)
+    show_image(corrected_image)
