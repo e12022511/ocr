@@ -5,6 +5,7 @@ from pdf2image import convert_from_path
 from deskew_traditional.deskew_utils import *
 from deskew_traditional.hough_transform import HoughTransform
 from deskew_traditional.projection_profile import ProjectionProfile
+from deskew_traditional.nearest_neighbor import NearestNeighbor
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -32,12 +33,12 @@ def pdf_to_text(pdf_path):
 
 
 if __name__ == '__main__':
-    path = 'resources/PDFs/Rechnungsvorlage.png'
+    path = 'resources/PDFs/doc.png'
     img = read_from_path(path)
-    img = rotate_image(img, 4.5)
 
     ht = HoughTransform()
     pp = ProjectionProfile()
+    knn = NearestNeighbor()
 
-    corrected_image = pp.deskew(img)
+    corrected_image = knn.deskew(img)
     show_image(corrected_image)
