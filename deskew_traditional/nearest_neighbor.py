@@ -1,21 +1,20 @@
 import math
 
 import cv2
-import numpy as np
 
 from deskew_traditional.deskew_method import DeskewMethod
-from deskew_traditional.deskew_utils import *
+from utils.deskew_utils import *
 
 accumulator = []
 
 
 class NearestNeighbor(DeskewMethod):
-    def deskew(self, image):
+    def deskew(self, image_path):
+        image = read_from_path(image_path)
         find_connected_components(image)
         highest_angle_values = find_nearest_neighbors(15)
         rotation_angle = filter_outliers(highest_angle_values)
-        print(rotation_angle)
-        return rotate_image(image, rotation_angle)
+        return rotation_angle
 
 
 def find_connected_components(image):
@@ -23,7 +22,7 @@ def find_connected_components(image):
     # invert image since cv2.connectedComponentsWithStats works better with inverted Images
     inverted_image = invert_image(eroded_image)
     number_of_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(inverted_image, connectivity=8)
-    color_connected_components(number_of_labels, labels, stats, False)
+    color_connected_components(number_of_labels, labels, stats, True)
     fill_accumulator_with_components(number_of_labels, centroids)
 
 

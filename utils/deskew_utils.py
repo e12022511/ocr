@@ -1,12 +1,16 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from skimage.color import rgb2gray
+from skimage.feature import canny
 from skimage.filters import sobel, gaussian
 from skimage.io import imread, imshow
 from skimage.transform import rotate
 
 
 def rotate_image(image, rotation_angle):
-    return rotate(image, rotation_angle, cval=1)
+        rotated_image = rotate(image, rotation_angle, cval=1)
+        return (rotated_image * 255).astype(np.uint8)
+
 
 
 def image_to_grayscale(image):
