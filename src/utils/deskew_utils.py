@@ -1,9 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage.color import rgb2gray
-from skimage.feature import canny
 from skimage.filters import sobel, gaussian
-from skimage.io import imread, imshow
+from skimage.io import imread, imshow, imsave
 from skimage.transform import rotate
 
 
@@ -40,3 +39,21 @@ def show_image(image):
     imshow(image)
     plt.axis('off')
     plt.show()
+
+
+def save_image(image_data, file_path):
+    """
+    Save an image to a specified file path.
+
+    Parameters:
+    - image_data: Image data as a PIL Image object.
+    - file_path: Path where the image will be saved.
+
+    Returns:
+    - None
+    """
+    try:
+        imsave(file_path, image_data)
+        print(f"Image saved successfully to {file_path}")
+    except Exception as e:
+        print(f"Error saving image: {e}")

@@ -2,8 +2,8 @@ from collections import Counter
 
 import skimage.transform
 
-from deskew_traditional.deskew_method import DeskewMethod
-from utils.deskew_utils import *
+from src.deskew_traditional.deskew_method import DeskewMethod
+from src.utils.deskew_utils import *
 
 
 class HoughTransform(DeskewMethod):
@@ -24,4 +24,4 @@ class HoughTransform(DeskewMethod):
         for value, count in counter.items():
             if count == max_value:
                 most_common_values.append(value)
-        return np.mean(most_common_values)
+        return np.mean(most_common_values) - 90

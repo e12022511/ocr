@@ -48,7 +48,7 @@ def plot_result(history):
 
 if __name__ == '__main__':
     images, labels = organize_data(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), r'..\resources\sorted_data')))
+        os.path.abspath(os.path.join(os.path.dirname(__file__), r'../../resources/sorted_data')))
 
     split_ratio = 0.8
     split_index = int(len(images) * split_ratio)
@@ -60,4 +60,4 @@ if __name__ == '__main__':
                   loss="mse")
     history = model.fit(train_images, train_labels, epochs=20, validation_data=(val_images, val_labels))
     plot_result(history)
-    model.save('test5')
+    model.save('model')

@@ -2,8 +2,8 @@ import math
 
 import cv2
 
-from deskew_traditional.deskew_method import DeskewMethod
-from utils.deskew_utils import *
+from src.deskew_traditional.deskew_method import DeskewMethod
+from src.utils.deskew_utils import *
 
 accumulator = []
 

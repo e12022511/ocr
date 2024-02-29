@@ -1,5 +1,5 @@
-from deskew_traditional.deskew_method import DeskewMethod
-from utils.deskew_utils import *
+from src.deskew_traditional.deskew_method import DeskewMethod
+from src.utils.deskew_utils import *
 
 
 def calculate_pixel_per_line(image):

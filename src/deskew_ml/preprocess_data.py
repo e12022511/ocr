@@ -9,7 +9,7 @@ def preprocess(path):
         image_name = os.path.join(path, filename)
         angle = float(extract_angle(image_name))
         rounded_angle = round_angle(angle)
-        path_including_angle = os.path.join(r'..\resources\sorted_data', f'{rounded_angle}')
+        path_including_angle = os.path.join(r'../../resources/sorted_data', f'{rounded_angle}')
 
         destination_directory = os.path.join(os.path.join(os.path.dirname(__file__), path_including_angle))
         os.makedirs(destination_directory, exist_ok=True)
@@ -55,4 +55,4 @@ def round_angle(number):
 
 
 if __name__ == '__main__':
-    preprocess(os.path.abspath(os.path.join(os.path.dirname(__file__), r'..\resources\dataset')))
+    preprocess(os.path.abspath(os.path.join(os.path.dirname(__file__), r'../../resources/dataset')))

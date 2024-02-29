@@ -3,29 +3,29 @@ from torchmetrics.functional.text import char_error_rate
 
 
 def calculate_ocr_accuracy(ground_truth, ocr_output, method):
-    if method == "Levenshtein":
-        return Levenshtein.distance(ground_truth, ocr_output)
+    if method == "LEV":
+        return Levenshtein.distance(' '.join(ground_truth), ' '.join(ocr_output))
     if method == "CER":
-        return char_error_rate(ground_truth, ocr_output)
+        return char_error_rate(' '.join(ground_truth), ' '.join(ocr_output))
     else:
         raise ValueError(f"Invalid method '{method}'. Supported methods are 'Levenshtein' and 'CER'.")
 
 
 def txt_to_string(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
-        lines = [line.strip() for line in file.readlines() if line.strip()]
-        return ' '.join(lines)
+        return [line.strip() for line in file.readlines() if line.strip()]
 
 
 if __name__ == '__main__':
-    ground_truth_string = txt_to_string("../resources/ocr_tests/1/ground_truth.txt")
-    ht_string = txt_to_string("../resources/ocr_tests/1/ht.txt")
-    pp_string = txt_to_string("../resources/ocr_tests/1/pp.txt")
-    knn_string = txt_to_string("../resources/ocr_tests/1/knn.txt")
-    ml_string = txt_to_string("../resources/ocr_tests/1/ml.txt")
-    skewed_string = txt_to_string("../resources/ocr_tests/1/skewed.txt")
+    test_number = 4
+    ground_truth_string = txt_to_string(f"../resources/ocr_tests/{test_number}/ground_truth.txt")
+    ht_string = txt_to_string(f"../resources/ocr_tests/{test_number}/ht.txt")
+    pp_string = txt_to_string(f"../resources/ocr_tests/{test_number}/pp.txt")
+    knn_string = txt_to_string(f"../resources/ocr_tests/{test_number}/knn.txt")
+    ml_string = txt_to_string(f"../resources/ocr_tests/{test_number}/ml.txt")
+    skewed_string = txt_to_string(f"../resources/ocr_tests/{test_number}/skewed.txt")
 
-    compare_method = "Levenshtein"
+    compare_method = "CER"
 
     ht = calculate_ocr_accuracy(ground_truth_string, ht_string, compare_method)
     pp = calculate_ocr_accuracy(ground_truth_string, pp_string, compare_method)
