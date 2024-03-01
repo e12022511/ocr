@@ -7,9 +7,8 @@ from skimage.transform import rotate
 
 
 def rotate_image(image, rotation_angle):
-        rotated_image = rotate(image, rotation_angle, cval=1)
-        return (rotated_image * 255).astype(np.uint8)
-
+    rotated_image = rotate(image, rotation_angle, cval=1)
+    return (rotated_image * 255).astype(np.uint8)
 
 
 def image_to_grayscale(image):
@@ -42,16 +41,6 @@ def show_image(image):
 
 
 def save_image(image_data, file_path):
-    """
-    Save an image to a specified file path.
-
-    Parameters:
-    - image_data: Image data as a PIL Image object.
-    - file_path: Path where the image will be saved.
-
-    Returns:
-    - None
-    """
     try:
         imsave(file_path, image_data)
         print(f"Image saved successfully to {file_path}")

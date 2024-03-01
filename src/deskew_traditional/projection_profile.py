@@ -10,6 +10,15 @@ class ProjectionProfile(DeskewMethod):
     histogram = {}
 
     def deskew(self, image_path):
+        """
+        Deskew the input image using the Projection Profile method
+        Parameters:
+        - image_path (str): The file path of the input image
+        Returns:
+        - float: The estimated deskew angle in degrees
+        Raises:
+        - Any exceptions raised during image reading or processing.
+        """
         image = read_from_path(image_path)
         grey_image = image_to_grayscale(image)
 

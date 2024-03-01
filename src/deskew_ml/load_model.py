@@ -36,9 +36,7 @@ def plot_result(history):
 
 
 if __name__ == '__main__':
-    # angle = apply_model('model', cv2.imread(os.path.join(os.path.dirname(__file__), r'..\resources\test\0000054665[2.96].png')))
     model = load_model('model')
-    print(model)
     history = model.history
     plot_result(history)
 
@@ -47,5 +45,6 @@ class MlMethod(DeskewMethod):
 
     def deskew(self, path):
         total_path = os.path.join(os.path.dirname(__file__), r'../..', path.replace("/", "\\"))
-        rotation_angle = apply_model('src/deskew_ml/model', cv2.imread(os.path.join(os.path.dirname(__file__), total_path)))
+        rotation_angle = apply_model('src/deskew_ml/model',
+                                     cv2.imread(os.path.join(os.path.dirname(__file__), total_path)))
         return rotation_angle[0][0] * -1

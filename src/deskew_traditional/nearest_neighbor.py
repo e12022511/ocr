@@ -10,6 +10,15 @@ accumulator = []
 
 class NearestNeighbor(DeskewMethod):
     def deskew(self, image_path):
+        """
+        Deskew the input image using the Nearest Neighbor method
+        Parameters:
+        - image_path (str): The file path of the input image
+        Returns:
+        - float: The estimated deskew angle in degrees
+        Raises:
+        - Any exceptions raised during image reading or processing.
+        """
         image = read_from_path(image_path)
         find_connected_components(image)
         highest_angle_values = find_nearest_neighbors(15)

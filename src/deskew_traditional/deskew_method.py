@@ -5,4 +5,3 @@ class DeskewMethod(ABC):
     @abstractmethod
     def deskew(self, image):
         pass
-

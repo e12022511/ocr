@@ -9,6 +9,15 @@ from src.utils.deskew_utils import *
 class HoughTransform(DeskewMethod):
 
     def deskew(self, image_path):
+        """
+        Deskew the input image using the Hough Transform method
+        Parameters:
+        - image_path (str): The file path of the input image
+        Returns:
+        - float: The estimated deskew angle in degrees
+        Raises:
+        - Any exceptions raised during image reading or processing.
+        """
         image = read_from_path(image_path)
         sobel_image = apply_sobel(image)
         theta_range = np.deg2rad(np.arange(0.1, 180.0))

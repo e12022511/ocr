@@ -3,6 +3,20 @@ from torchmetrics.functional.text import char_error_rate
 
 
 def calculate_ocr_accuracy(ground_truth, ocr_output, method):
+    """
+    Calculate OCR accuracy based on the specified method.
+    Parameters:
+    - ground_truth (list): List of strings representing the ground truth.
+    - ocr_output (list): List of strings representing the OCR output.
+    - method (str): The method to calculate accuracy. Supported values: "LEV" or "CER".
+    Returns:
+    - float: The calculated OCR accuracy.
+    Raises:
+    - ValueError: If an invalid method is provided.
+    Note:
+    - The "LEV" method calculates accuracy using Levenshtein distance.
+    - The "CER" method calculates accuracy using Character Error Rate.
+     """
     if method == "LEV":
         return Levenshtein.distance(' '.join(ground_truth), ' '.join(ocr_output))
     if method == "CER":
