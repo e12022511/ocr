@@ -1,3 +1,5 @@
+import os
+
 import filetype
 import pytesseract
 from pdf2image import convert_from_path
@@ -23,12 +25,11 @@ def extract_text(file_path):
 
 
 def image_to_text(images, output_file_path):
-    save = True
-    if save:
-        with open(output_file_path, 'w', encoding='utf-8') as output_file:
-            for i in range(len(images)):
-                extracted_text = pytesseract.image_to_string(images[i])
-                output_file.write(extracted_text + '\n')
+    with open(output_file_path, 'w', encoding='utf-8', newline=os.linesep) as output_file:
+        for i in range(len(images)):
+            extracted_text = pytesseract.image_to_string(images[i])
+            result_string = '\n'.join(line for line in extracted_text.splitlines() if line.strip())
+            output_file.write(result_string)
 
 
 def pdf_to_text(pdf_path):

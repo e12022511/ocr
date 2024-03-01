@@ -11,7 +11,6 @@ class HoughTransform(DeskewMethod):
     def deskew(self, image_path):
         image = read_from_path(image_path)
         sobel_image = apply_sobel(image)
-        show_image(sobel_image)
         theta_range = np.deg2rad(np.arange(0.1, 180.0))
         hspace, angles, distances = skimage.transform.hough_line(sobel_image, theta_range)
         _, angles, _ = skimage.transform.hough_line_peaks(hspace, angles, distances)
