@@ -20,7 +20,7 @@ def calculate_ocr_accuracy(ground_truth, ocr_output, method):
     if method == "LEV":
         return Levenshtein.distance(' '.join(ground_truth), ' '.join(ocr_output))
     if method == "CER":
-        return char_error_rate(' '.join(ground_truth), ' '.join(ocr_output))
+        return char_error_rate(ground_truth, ocr_output)
     else:
         raise ValueError(f"Invalid method '{method}'. Supported methods are 'Levenshtein' and 'CER'.")
 

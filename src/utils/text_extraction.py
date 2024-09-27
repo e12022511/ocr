@@ -14,6 +14,15 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 
 
 def extract_text(file_path):
+    """
+        Extract text from a file based on its type (PDF or image).
+
+        Args:
+            file_path (str): The path to the input file (PDF or image).
+
+        Raises:
+            ValueError: If the file type is not supported.
+        """
     file_type = filetype.guess(file_path).extension
     if file_type == 'pdf':
         pdf_to_text(file_path)
@@ -24,15 +33,46 @@ def extract_text(file_path):
         print("File can only be of Type pdf/png/jpeg")
 
 
+def image_to_text_no_write(images):
+    """
+      Extract text from a list of images without writing to a file.
+
+      Args:
+          images (list): List of images as NumPy arrays.
+
+      Returns:
+          list: List of extracted text lines.
+      """
+    for i in range(len(images)):
+        extracted_text = pytesseract.image_to_string(images[i])
+        result_string = '\n'.join(line for line in extracted_text.splitlines() if line.strip())
+        # output_file.write(result_string)
+        return result_string.splitlines()
+
+
 def image_to_text(images, output_file_path):
+    """
+        Extract text from a list of images and write the result to a specified output file.
+
+        Args:
+            images (list): List of images as NumPy arrays.
+            output_file_path (str): The file path where the extracted text will be saved.
+        """
     with open(output_file_path, 'w', encoding='utf-8', newline=os.linesep) as output_file:
         for i in range(len(images)):
             extracted_text = pytesseract.image_to_string(images[i])
             result_string = '\n'.join(line for line in extracted_text.splitlines() if line.strip())
-            output_file.write(result_string)
+            # output_file.write(result_string)
+            return result_string
 
 
 def pdf_to_text(pdf_path):
+    """
+       Convert a PDF file to text by first converting it to images.
+
+       Args:
+           pdf_path (str): The path to the PDF file to be converted.
+       """
     images = convert_from_path(pdf_path)
     image_to_text(images, 'output.txt')
 

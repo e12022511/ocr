@@ -3,10 +3,32 @@ from src.utils.deskew_utils import *
 
 
 def calculate_pixel_per_line(image):
+    """
+        Calculates the sum of pixel values along each row of the image. This can be used for
+        histogram analysis in the Projection Profile method for deskewing.
+
+        Args:
+            image (numpy.ndarray): Input grayscale or binary image as a NumPy array.
+
+        Returns:
+            numpy.ndarray: A 1D array representing the sum of pixel values for each row.
+        """
     return np.sum(image, axis=1)
 
 
 class ProjectionProfile(DeskewMethod):
+    """
+       Implements the Projection Profile method for deskewing an image. It rotates the image
+       at various angles and calculates a histogram of pixel values to find the best angle.
+
+       Attributes:
+           histogram (dict): A dictionary that stores the median pixel sum for each rotation angle.
+
+       Methods:
+           deskew(image_path): Deskews the image located at the given file path using the
+                               Projection Profile method.
+       """
+
     histogram = {}
 
     def deskew(self, image_path):
