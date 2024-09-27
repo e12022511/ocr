@@ -25,7 +25,7 @@ You can use the provided Docker image to run the deskew OCR tool easily.
 To pull the Docker image, use the following command:
 
 ```bash
-docker pull e12022511/deskew-ocr:version1
+docker pull e12022511/deskew-ocr:version2
 ```
 
 #### Run the docker image
